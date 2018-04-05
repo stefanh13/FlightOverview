@@ -2,14 +2,13 @@ import "babel-polyfill"
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
 
 import Counter from './Counter'
-import reducer from './reducers'
 
-const store = createStore(reducer)
+import store from './store.js'
+import { action } from './actions.js'
 
-const action = type => store.dispatch({type})
+
 
 function render() {
   ReactDOM.render(

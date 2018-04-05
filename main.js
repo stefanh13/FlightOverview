@@ -3,19 +3,20 @@ import "babel-polyfill"
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Counter from './Counter'
+// import Counter from './Counter'
+import Flights from './Flights'
 
 import store from './store.js'
-import { incrementAction, decrementAction, type } from './actions.js'
+import { fetchFlights, decrementAction, type } from './actions.js'
 
-
+import { Provider } from 'react-redux'
 
 function render() {
   ReactDOM.render(
-    <Counter
-      value={store.getState()}
-      onIncrement={() => incrementAction()}
-      onDecrement={() => decrementAction()} />,
+    <Provider store={store}>
+      <Flights flights={store.getState()}/>
+    </Provider>
+    ,
     document.getElementById('root')
   )
 }

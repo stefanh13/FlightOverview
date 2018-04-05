@@ -12,14 +12,13 @@ const Counter = ({ value, onIncrement, onDecrement }) =>
         </button>
         <hr />
         <div>
-          Clicked: {value} times
         </div>
       </div>
 
-Counter.propTypes = {
-  value: PropTypes.number.isRequired,
+/* Counter.propTypes = {
+  value: PropTypes.object
   onIncrement: PropTypes.func.isRequired,
   onDecrement: PropTypes.func.isRequired
-}
+} */
 
 export default Counter

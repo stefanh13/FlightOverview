@@ -1,15 +1,14 @@
 import store from './store.js'
-
 export const type = {
-  increment: 'INCREMENT',
-  decrement: 'DECREMENT',
-  incrIfOdd: 'INCREMENT_IF_ODD',
+  fetchFlights: 'fetchFlights',
+  fetchFlightsResolved: 'fetchFlightsResolved',
 }
 
-export const incrementAction = () => store.dispatch({
-  type: type.increment,
+export const fetchFlights = () => ({
+  type: type.fetchFlights,
 })
 
-export const decrementAction = () => store.dispatch({
-  type: type.decrement,
+export const fetchFlightsResolved = flights => store.dispatch({
+  type: type.fetchFlightsResolved,
+  flights,
 })

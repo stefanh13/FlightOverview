@@ -1,3 +1,3 @@
-export const fetchFlights = type => {
+export const fetchFlights = flightType => {
   return null
 }

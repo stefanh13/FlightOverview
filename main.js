@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import Counter from './Counter'
 
 import store from './store.js'
-import { action } from './actions.js'
+import { incrementAction, decrementAction, type } from './actions.js'
 
 
 
@@ -14,8 +14,8 @@ function render() {
   ReactDOM.render(
     <Counter
       value={store.getState()}
-      onIncrement={() => action('INCREMENT')}
-      onDecrement={() => action('DECREMENT')} />,
+      onIncrement={() => incrementAction()}
+      onDecrement={() => decrementAction()} />,
     document.getElementById('root')
   )
 }

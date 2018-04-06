@@ -1,4 +1,5 @@
-# Komur og brottfarir
+# Arrivals and Departures
+Overview of arrivals and departures that are fetched using the flight api from apis.is. 
 
 # Instructions
 
@@ -6,11 +7,11 @@ Setup
 
 ```
 // clone the repo
-git clone https://github.com/redux-saga/redux-saga-beginner-tutorial.git
+git clone git@github.com:stefanh13/FlightOverview.git
 
-cd redux-saga-beginner-tutorial
+cd FlightOverview
 
-npm install
+npm i
 ```
 
 Run the demo

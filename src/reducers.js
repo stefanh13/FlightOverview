@@ -7,9 +7,9 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'fetchArrivalFlightsResolved':
+    case type.fetchArrivalFlightsResolved:
       return { ...state, arrivalFlights: action.flights }
-    case 'fetchDepartureFlightsResolved':
+    case type.fetchDepartureFlightsResolved:
       return { ...state, departureFlights: action.flights }
     default:
       return state

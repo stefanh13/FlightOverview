@@ -18,5 +18,4 @@ Run the demo
 
 ```
 npm start
-Navigate to http://192.168.1.35:9967/ in your prefered browser
 ```

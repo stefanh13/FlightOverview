@@ -18,6 +18,7 @@ class Overview extends Component {
     this.handleDeparturesClick = this.handleDeparturesClick.bind(this)
   }
 
+  // Fetches filtered list of flights based on the users input
   getFilteredFlights() {
     let flights
     const { filterInput, selectedFlightType } = this.state

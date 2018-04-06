@@ -6,6 +6,8 @@ import flightType from './flightType'
 function* onfetchFlights(action) {
    try {
       const flights = yield call(fetchFlightsAPI, action.flightType)
+
+      // Dispatch resolved action corresponding to the flightType
       if(action.flightType === flightType.arrivals) {
         yield put(fetchArrivalFlightsResolved(flights.data.results))
       } else if(action.flightType === flightType.departures) {

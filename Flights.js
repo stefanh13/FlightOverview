@@ -1,91 +1,95 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { fetchFlights } from './actions'
+import css from './styles'
 
-const css = {
-  table: {
-    width: "100%",
-    maxWidth: "100%",
-    marginBottom: "22px",
-    fontSize: "14px",
-    textAlign: "left",
-    verticalAlign: "top",
-    padding: "10px 20px",
-    fontFamily: "museo-sans,\"Helvetica Neue\",Helvetica,Arial,sans-serif",
-  },
-  th: {
-    fontWeight: "300",
-    backgroundColor: "#981a85",
-    padding: "8px",
-    lineHeight: "1.42857143",
-    color: "#fff"
-  },
-  td: {
-    borderBottom: "1px solid #d3d3d3",
-    padding: "8px",
-    lineHeight: "1.42857143",
-    verticalAlign: "top"
-  },
-  input: {
-    "border": "1px solid #ccc",
-    "padding": "10px",
-    "borderRadius": "2px",
-    "marginLeft":"20px"
-  }
+const flightType = {
+  departures: 'departures',
+  arrivals: 'arrivals',
 }
 
 class Flights extends Component {
   constructor(props) {
     super(props)
-    props.fetchFlights()
+    props.fetchFlights(flightType.arrivals)
     this.state = {
-      filterInput: ''
+      filterInput: '',
+      selectedFlightType: flightType.arrivals,
     }
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleArrivalsClick = this.handleArrivalsClick.bind(this)
+    this.handleDeparturesClick = this.handleDeparturesClick.bind(this)
   }
-  getFlights() {
-    const { flights } = this.props
-    const { filterInput } = this.state
+
+  getFilteredFlights() {
+    let flights
+    const { filterInput, selectedFlightType } = this.state
+    const { arrivalFlights, departureFlights } = this.props
+    if (selectedFlightType === flightType.arrivals) {
+      flights = arrivalFlights
+    } else if (selectedFlightType === flightType.departures) {
+      flights = departureFlights
+    }
+
     return filterInput === '' ? flights : flights.filter(f => f.flightNumber.toLowerCase().includes(filterInput.toLowerCase()))
   }
+
   getRows() {
-    const flights = this.getFlights()
+    const flights = this.getFilteredFlights()
     if(!flights) {
       return
     }
     return flights.map((flight) => {
       return (
-        <tr>
+        <tr key={flight.flightNumber}>
           <td style={css.td}>{flight.date}</td>
           <td style={css.td}>{flight.flightNumber}</td>
-          <td style={css.td}>{flight.from}</td>
+          <td style={css.td}>{this.state.selectedFlightType === flightType.arrivals ? flight.from : flight.to}</td>
           <td style={css.td}>{flight.airline}</td>
           <td style={css.td}>{flight.plannedArrival}</td>
-          <td style={css.td}>{flight.realArrival}</td>
+          <td style={css.td}>{flight.realArrival === '' ? 'TBA' : flight.realArrival}</td>
         </tr>
       )
     })
 
   }
+
   handleInputChange(event) {
     this.setState({
       filterInput: event.target.value,
     })
   }
+
+  handleArrivalsClick() {
+    this.setState({
+      selectedFlightType: flightType.arrivals
+    })
+  }
+
+  handleDeparturesClick() {
+    this.setState({
+      selectedFlightType: flightType.departures
+    })
+    if (!this.props.departureFlights) {
+      this.props.fetchFlights(flightType.departures)
+    }
+  }
+
   render() {
-    console.log(this.getFlights())
     return (
       <div>
-        <input style={css.input} id='flightNumberFilter' placeholder='Bokunarnumer' value={this.state.filterInput} onChange={this.handleInputChange}/>
+        <input style={css.input} id='flightNumberFilter' placeholder='Bókunarnúmer' value={this.state.filterInput} onChange={this.handleInputChange}/>
+        <button style={css.button} onClick={this.handleArrivalsClick}>Komur</button>
+        <button style={css.button} onClick={this.handleDeparturesClick}>Brottfarir</button>
         <table cellSpacing={0} style={css.table}>
           <thead>
             <tr>
               <th style={css.th}>Dagsetning</th>
-              <th style={css.th}>Flugnr</th>
+              <th style={css.th}>Flugnúmer</th>
               <th style={css.th}>Borg</th>
-              <th style={css.th}>Flugfelag</th>
-              <th style={css.th}>Aaetladur timi</th>
-              <th style={css.th}>Rauntimi</th>
+              <th style={css.th}>Flugfélag</th>
+              <th style={css.th}>Áætlaður komutími</th>
+              {}<th style={css.th}>Komutími</th>
             </tr>
           </thead>
           <tbody>
@@ -98,7 +102,7 @@ class Flights extends Component {
 }
 
 const mapStateToProps = state => {
-  return { flights: state.flights }
+  return { arrivalFlights: state.arrivalFlights, departureFlights: state.departureFlights }
 }
 
 export default connect(mapStateToProps, { fetchFlights })(Flights)

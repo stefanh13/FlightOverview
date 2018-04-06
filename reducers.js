@@ -1,13 +1,16 @@
 import { type } from './actions'
 
 const initialState = {
-  flights: undefined
+  arrivalFlights: undefined,
+  departureFlights: undefined,
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case 'fetchFlightsResolved':
-      return { ...state, flights: action.flights }
+    case 'fetchArrivalFlightsResolved':
+      return { ...state, arrivalFlights: action.flights }
+    case 'fetchDepartureFlightsResolved':
+      return { ...state, departureFlights: action.flights }
     default:
       return state
   }

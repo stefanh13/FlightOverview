@@ -1,14 +1,20 @@
-import store from './store.js'
 export const type = {
   fetchFlights: 'fetchFlights',
-  fetchFlightsResolved: 'fetchFlightsResolved',
+  fetchArrivalFlightsResolved: 'fetchArrivalFlightsResolved',
+  fetchDepartureFlightsResolved: 'fetchDepartureFlightsResolved',
 }
 
-export const fetchFlights = () => ({
+export const fetchFlights = flightType => ({
   type: type.fetchFlights,
+  flightType,
 })
 
-export const fetchFlightsResolved = flights => store.dispatch({
-  type: type.fetchFlightsResolved,
+export const fetchArrivalFlightsResolved = flights => ({
+  type: type.fetchArrivalFlightsResolved,
+  flights,
+})
+
+export const fetchDepartureFlightsResolved = flights => ({
+  type: type.fetchDepartureFlightsResolved,
   flights,
 })

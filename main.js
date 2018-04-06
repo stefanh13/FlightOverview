@@ -14,7 +14,7 @@ import { Provider } from 'react-redux'
 function render() {
   ReactDOM.render(
     <Provider store={store}>
-      <Flights flights={store.getState()}/>
+      <Flights />
     </Provider>
     ,
     document.getElementById('root')

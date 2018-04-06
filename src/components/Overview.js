@@ -29,7 +29,7 @@ class Overview extends Component {
       flights = departureFlights
     }
 
-    return filterInput === '' ? flights : flights.filter(f => f.flightNumber.toLowerCase().includes(filterInput.toLowerCase()))
+    return filterInput === '' || !flights ? flights : flights.filter(f => f.flightNumber.toLowerCase().includes(filterInput.toLowerCase()))
   }
 
   handleInputChange(event) {
